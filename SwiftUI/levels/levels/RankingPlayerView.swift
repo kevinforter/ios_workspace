@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct RankingPlayerView: View {
-    
-
+    let firstName: String
+    let codeName: String
+    let score: String
     var body: some View {
         HStack {
             HStack {
@@ -34,5 +35,5 @@ struct RankingPlayerView: View {
 }
 
 #Preview {
-    RankingPlayerView()
+    RankingPlayerView(firstName: "Kevin", codeName: "The Student", score: "1000")
 }

@@ -8,11 +8,39 @@
 import SwiftUI
 
 struct RankingListView: View {
+    let firstName: String
+    let codeName: String
+    let score: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            HStack {
+                Image(ImageResource.player)
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                    .clipShape(Circle())
+                    .shadow(radius : 10)
+                VStack (alignment: .leading) {
+                    Text(firstName)
+                        .font(.headline)
+                    Text(codeName)
+                        .font(.caption)
+                }
+            }
+            .padding()
+            Spacer()
+            Text(score)
+                .padding()
+        }
     }
 }
 
 #Preview {
-    RankingListView()
+        NavigationStack {
+        List {
+            RankingListView(firstName: "Kevin", codeName: "The Student", score: "1000")
+            RankingListView(firstName: "Elia", codeName: "The Designer", score: "900")
+            RankingListView(firstName: "Jovan", codeName: "The Salesman", score: "800")
+        }
+        .navigationBarTitle("Ranking List")
+    }
 }

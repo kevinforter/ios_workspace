@@ -11,6 +11,7 @@ struct LevelDetailView: View {
     let solved: String
     let failed: String
     let likes: String
+    let name: String
     var body: some View {
         ScrollView {
             Image(ImageResource.level)
@@ -48,6 +49,8 @@ struct LevelDetailView: View {
                 Text("Das Erste Rätsel")
                     .font(.title)
                 Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut")
+                Text("Von ").font(.caption) + Text(name).bold()
+                    .font(.caption)
             }
             .padding()
             .background(Material.regular)
@@ -63,5 +66,5 @@ struct LevelDetailView: View {
 }
 
 #Preview {
-    LevelDetailView(solved: "25", failed: "9", likes: "8")
+    LevelDetailView(solved: "25", failed: "9", likes: "8", name: "Kevin")
 }

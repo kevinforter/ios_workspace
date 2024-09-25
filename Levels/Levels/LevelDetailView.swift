@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LevelDetailView: View {
+    let solved: String
+    let failed: String
+    let likes: String
     var body: some View {
         ScrollView {
             Image(ImageResource.level)
@@ -21,13 +24,13 @@ struct LevelDetailView: View {
             HStack {
                 VStack {
                     Text("Solved")
-                    Text("25")
+                    Text(solved)
                         .font(.title)
                         .bold()
                 }
                 VStack {
                     Text("Failed")
-                    Text("9")
+                    Text(failed)
                         .font(.title)
                         .bold()
                     
@@ -36,7 +39,7 @@ struct LevelDetailView: View {
                 VStack {
                     Image(systemName: "heart")
                         .imageScale(.large)
-                    Text("8")
+                    Text(likes)
                         .textScale(.secondary)
                 }
             }
@@ -60,5 +63,5 @@ struct LevelDetailView: View {
 }
 
 #Preview {
-    LevelDetailView()
+    LevelDetailView(solved: "25", failed: "9", likes: "8")
 }

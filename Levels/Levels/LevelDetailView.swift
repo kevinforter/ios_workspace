@@ -8,54 +8,54 @@
 import SwiftUI
 
 struct LevelDetailView: View {
-    let solved: String
-    let failed: String
-    let likes: String
-    let name: String
     var body: some View {
         ScrollView {
-            Image(ImageResource.level)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(minWidth: 0, minHeight: 0)
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .aspectRatio(2, contentMode: .fill)
+            VStack(alignment: .leading) {
+                Image(ImageResource.level)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(minWidth: 0, minHeight: 0)
+                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .aspectRatio(2, contentMode: .fill)
+                    .padding()
+                HStack {
+                    VStack {
+                        Text("Solved")
+                        Text("25")
+                            .font(.title)
+                            .bold()
+                    }
+                    VStack {
+                        Text("Failed")
+                        Text("9")
+                            .font(.title)
+                            .bold()
+                        
+                    }
+                    Spacer()
+                    VStack {
+                        Image(systemName: "heart")
+                            .imageScale(.large)
+                        Text("8")
+                            .textScale(.secondary)
+                    }
+                }
                 .padding()
-            HStack {
-                VStack {
-                    Text("Solved")
-                    Text(solved)
+                VStack (alignment: .leading) {
+                    Text("Das Erste Rätsel")
                         .font(.title)
-                        .bold()
+                    Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut")
+                    Text("Von ").font(.caption) + Text("Kevin").bold()
+                        .font(.caption)
                 }
-                VStack {
-                    Text("Failed")
-                    Text(failed)
-                        .font(.title)
-                        .bold()
-                    
-                }
-                Spacer()
-                VStack {
-                    Image(systemName: "heart")
-                        .imageScale(.large)
-                    Text(likes)
-                        .textScale(.secondary)
-                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(Material.regular)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .shadow(color: .black.opacity(0.3), radius: 5)
+                .padding()
             }
-            .padding()
-            VStack (alignment: .leading) {
-                Text("Das Erste Rätsel")
-                    .font(.title)
-                Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut")
-                Text("Von ").font(.caption) + Text(name).bold()
-                    .font(.caption)
-            }
-            .padding()
-            .background(Material.regular)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .shadow(color: .black.opacity(0.3), radius: 5)
         }
         .background {
             Image(ImageResource.level)
@@ -66,5 +66,5 @@ struct LevelDetailView: View {
 }
 
 #Preview {
-    LevelDetailView(solved: "25", failed: "9", likes: "8", name: "Kevin")
+    LevelDetailView()
 }

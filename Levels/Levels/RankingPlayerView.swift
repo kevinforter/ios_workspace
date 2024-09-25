@@ -20,15 +20,15 @@ struct RankingPlayerView: View {
                     .clipShape(Circle())
                     .shadow(radius : 10)
                 VStack (alignment: .leading) {
-                    Text("Kevin")
+                    Text(firstName)
                         .font(.headline)
-                    Text("The Student")
+                    Text(codeName)
                         .font(.caption)
                 }
             }
             .padding()
             Spacer()
-            Text("1000")
+            Text(score)
                 .padding()
         }
     }

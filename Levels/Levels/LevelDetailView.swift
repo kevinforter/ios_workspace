@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LevelDetailView: View {
+    @State var showLevel: Bool = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -42,6 +43,25 @@ struct LevelDetailView: View {
                     }
                 }
                 .padding()
+                VStack {
+                    Button {
+                        showLevel = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "play")
+                                .font(.title2)
+                                .bold()
+                            Text("Level Starten")
+                                .font(.title2)
+                                .bold()
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(.black)
+                        .cornerRadius(100)
+                    }
+                }
+                .frame(maxWidth: .infinity)
                 VStack (alignment: .leading) {
                     Text("Das Erste Rätsel")
                         .font(.title)
@@ -62,8 +82,10 @@ struct LevelDetailView: View {
                 .blur(radius: 20)
                 .opacity(0.2)
         }
+        .fullScreenCover(isPresented: $showLevel, content: { HangmanLevelView() })
     }
 }
+
 
 #Preview {
     LevelDetailView()

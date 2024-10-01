@@ -3,7 +3,7 @@
 ## Übungen
 
 - [X] 01: SwiftUI
-- [ ] 02: Hangman
+- [X] 02: Hangman
 - [ ] 03: Navigation
 - [ ] 04: Tic-Tac-Toe
 - [ ] 05: Persistenz
@@ -12,7 +12,7 @@
 
 ## Kommentare
 - 01: Ni perfekt aber es funkt, glaubi
-- 02: 
+- 02: Funzt
 - 03: 
 - 04: 
 - 05: 

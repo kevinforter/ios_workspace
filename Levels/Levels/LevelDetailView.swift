@@ -82,7 +82,7 @@ struct LevelDetailView: View {
                 .blur(radius: 20)
                 .opacity(0.2)
         }
-        .fullScreenCover(isPresented: $showLevel, content: { HangmanLevelView() })
+        .fullScreenCover(isPresented: $showLevel, content: { HangmanLevelView(showLevel: $showLevel) })
     }
 }
 

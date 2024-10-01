@@ -120,13 +120,25 @@ private let wordList = [
 ]
 
 struct HangmanLevelView: View {
+    @Binding var showLevel: Bool
     private let wordToGuess: [Character] = wordList.randomElement()!.uppercased().map { $0 }
 
     var body: some View {
-        Text("Hello World")
+        VStack {
+            Button {
+                showLevel = false
+            } label: {
+                Text("Schliessen")
+            }
+            .frame(maxWidth: .infinity,
+                   alignment: .trailing)
+            .padding(.trailing, 8)
+            // TODO: Game UI
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    HangmanLevelView()
+    HangmanLevelView(showLevel: .constant(true))
 }

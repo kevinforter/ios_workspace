@@ -121,8 +121,30 @@ private let wordList = [
 
 struct HangmanLevelView: View {
     @Binding var showLevel: Bool
+    @State var remainingTries: Int = 7
+    @State var guessedLetters: Set<Character> = []
+    @State var text: String = ""
     private let wordToGuess: [Character] = wordList.randomElement()!.uppercased().map { $0 }
 
+    // Computed Property für das berechnete Wort
+    private var calculatedWord: [Character] {
+        wordToGuess.map { guessedLetters.contains($0) ? $0 : "_" }
+    }
+    
+    func evaluateGuess() {
+        // Versuche den ersten Buchstaben aus der Textvariable zu entnehmen
+        if let guessedChar = text.first?.uppercased().first {
+            // Prüfen, ob der Buchstabe nicht im Wort ist und nicht bereits geraten wurde
+            if !wordToGuess.contains(guessedChar) && !guessedLetters.contains(guessedChar) {
+                remainingTries -= 1 // Einen Versuch abziehen
+            }
+            // Buchstabe in guessedLetters hinzufügen
+            guessedLetters.insert(guessedChar)
+        }
+        // Text zurücksetzen
+        text = ""
+    }
+    
     var body: some View {
         VStack {
             Button {
@@ -133,6 +155,26 @@ struct HangmanLevelView: View {
             .frame(maxWidth: .infinity,
                    alignment: .trailing)
             .padding(.trailing, 8)
+            
+            // Berechnetes Wort anzeigen
+            HStack {
+                ForEach(calculatedWord, id: \.self) { letter in
+                    Text(String(letter))
+                        .font(.largeTitle)
+                        .padding()
+                }
+            }
+                        
+            Text("Remaining Tries: \(remainingTries)")
+                .font(.title)
+
+            // Eingabefeld für das Raten eines Buchstabens
+            TextField("Rate einen Buchstaben", text: $text, onCommit: {
+                evaluateGuess()
+                // Auswertung nach Eingabe
+            })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding()
             // TODO: Game UI
             Spacer()
         }

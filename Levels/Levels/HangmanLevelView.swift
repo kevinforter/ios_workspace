@@ -173,6 +173,7 @@ struct HangmanLevelView: View {
                                endPoint: .bottom)
             )
             .cornerRadius(10)
+            .shadow(color: .black.opacity(0.3), radius: 5)
             
             VStack (alignment: .leading) {
                 Text("Verbleibende Versuche: \(remainingTries)")
@@ -207,6 +208,7 @@ struct HangmanLevelView: View {
                             RoundedRectangle(cornerRadius: 3)
                                 .stroke(c == "_" ? Color.red : Color.green, lineWidth: 2)
                         )
+                        .shadow(color: .black.opacity(0.3), radius: 5)
                 }
             }
             .padding(.horizontal)

@@ -59,6 +59,7 @@ struct LevelDetailView: View {
                         .foregroundColor(.white)
                         .background(.black)
                         .cornerRadius(100)
+                        .shadow(color: .black.opacity(0.3), radius: 5)
                     }
                 }
                 .frame(maxWidth: .infinity)

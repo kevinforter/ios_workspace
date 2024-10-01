@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        /*
         HStack {
             HStack {
                 Image(systemName: "person")
@@ -26,6 +27,8 @@ struct ContentView: View {
             Text("1000")
                 .padding()
         }
+         */
+        LevelDetailView();
     }
 }
 

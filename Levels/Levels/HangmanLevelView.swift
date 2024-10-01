@@ -156,26 +156,77 @@ struct HangmanLevelView: View {
                    alignment: .trailing)
             .padding(.trailing, 8)
             
-            // Berechnetes Wort anzeigen
-            HStack {
-                ForEach(calculatedWord, id: \.self) { letter in
-                    Text(String(letter))
-                        .font(.largeTitle)
-                        .padding()
+            Text("Hangman")
+                .font(.largeTitle)
+            
+            Spacer().frame(height: 10)
+            
+            VStack {
+                Text(asciiHangman[remainingTries])
+                    .monospaced()
+                    .font(.system(size: 28))
+                    .padding(7)
+            }
+            .background(
+                LinearGradient(gradient: Gradient(colors: [Color.orange.opacity(0.9), Color.yellow.opacity(0.7)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+            )
+            .cornerRadius(10)
+            
+            VStack (alignment: .leading) {
+                Text("Verbleibende Versuche: \(remainingTries)")
+                Text("Bereits geraten: \(guessedLetters.map { "\($0)" }.joined(separator: " "))")
+                if calculatedWord == wordToGuess {
+                    Text("🎉Du hast gewonnen!🎉")
+                        .foregroundStyle(.green)
+                        .bold()
+                } else if remainingTries == 0 {
+                    Text("👎Du hast verloren!👎")
+                        .foregroundStyle(.red)
+                        .bold()
+                    Text("Das Wort war: \(wordToGuess.map { "\($0)"}.joined())")
+                        .foregroundStyle(.red)
+                        .bold()
                 }
             }
-                        
-            Text("Remaining Tries: \(remainingTries)")
-                .font(.title)
-
-            // Eingabefeld für das Raten eines Buchstabens
-            TextField("Rate einen Buchstaben", text: $text, onCommit: {
-                evaluateGuess()
-                // Auswertung nach Eingabe
-            })
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            // TODO: Game UI
+            .background(Material.regular)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .shadow(color: .black.opacity(0.3), radius: 5)
+            .padding()
+            
+            HStack {
+                ForEach(Array(calculatedWord.enumerated()), id: \.offset) { idx, c in
+                    Text(String(c))
+                        .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 60)
+                        .font(.largeTitle)
+                        .background(Color.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 3)
+                                .stroke(c == "_" ? Color.red : Color.green, lineWidth: 2)
+                        )
+                }
+            }
+            .padding(.horizontal)
+
+            HStack {
+                Text("Buchstabe:")
+                
+                TextField("", text: $text)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 25)
+                
+                Button {
+                    evaluateGuess()
+                } label: {
+                    Text("Raten")
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            .padding(10)
+            
             Spacer()
         }
     }

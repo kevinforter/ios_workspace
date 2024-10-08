@@ -9,10 +9,12 @@ import SwiftUI
 
 struct LevelDetailView: View {
     @State var showLevel: Bool = false
+    @Environment(\.dismiss) private var dismiss
+    var level: any Level
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Image(ImageResource.level)
+                level.titleImage
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(minWidth: 0, minHeight: 0)
@@ -64,10 +66,10 @@ struct LevelDetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 VStack (alignment: .leading) {
-                    Text("Das Erste Rätsel")
+                    Text(level.title)
                         .font(.title)
-                    Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut")
-                    Text("Von ").font(.caption) + Text("Kevin").bold()
+                    Text(level.description)
+                    Text("Von ").font(.caption) + Text(level.author).bold()
                         .font(.caption)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -83,12 +85,17 @@ struct LevelDetailView: View {
                 .blur(radius: 20)
                 .opacity(0.2)
         }
-        .fullScreenCover(isPresented: $showLevel, content: { HangmanLevel() })
+        .fullScreenCover(isPresented: $showLevel) {
+            NavigationStack {
+                AnyView(erasing: level) // Erase type for the view
+            }
+        }
+        //.fullScreenCover(isPresented: $showLevel, content: { HangmanLevel() })
         //.fullScreenCover(isPresented: $showLevel, content: { HangmanLevelView(showLevel: $showLevel) })
     }
 }
 
 
 #Preview {
-    LevelDetailView()
+    LevelDetailView(level: TextLevel())
 }

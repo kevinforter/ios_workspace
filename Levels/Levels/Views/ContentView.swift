@@ -28,7 +28,16 @@ struct ContentView: View {
                 .padding()
         }
          */
-        LevelDetailView();
+        //LevelDetailView();
+        TabView {
+            LevelsOverview()
+            .tabItem { Label("Levels", systemImage: "checklist") }
+            RankingListView()
+            .tabItem { Label("Ranking", systemImage: "star.fill") }
+            SettingsView()
+            .badge(2)
+            .tabItem { Label("Einstellungen", systemImage: "gear") }
+        }
     }
 }
 

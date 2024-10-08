@@ -162,7 +162,7 @@ struct HangmanLevelView: View {
             Spacer().frame(height: 10)
             
             VStack {
-                Text(asciiHangman[remainingTries])
+                Text(asciiHangman[7-remainingTries])
                     .monospaced()
                     .font(.system(size: 28))
                     .padding(7)

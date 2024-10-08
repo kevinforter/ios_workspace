@@ -119,8 +119,17 @@ private let wordList = [
     "Wolken",
 ]
 
-struct HangmanLevelView: View {
-    @Binding var showLevel: Bool
+struct HangmanLevel: Level {
+    
+    let id: String = "levels.hangman"
+    let title: String = "Hangman"
+    let author: String = "Kevin"
+    let description: String = "Bis zum schluss"
+    let titleImage: Image = Image(ImageResource.level)
+
+    @Environment(\.dismiss) private var dismiss
+    
+    // @Binding var showLevel: Bool
     @State var remainingTries: Int = 7
     @State var guessedLetters: Set<Character> = []
     @State var text: String = ""
@@ -148,7 +157,7 @@ struct HangmanLevelView: View {
     var body: some View {
         VStack {
             Button {
-                showLevel = false
+                dismiss()
             } label: {
                 Text("Schliessen")
             }
@@ -235,5 +244,6 @@ struct HangmanLevelView: View {
 }
 
 #Preview {
-    HangmanLevelView(showLevel: .constant(true))
+    // HangmanLevel(showLevel: .constant(true))
+    HangmanLevel()
 }

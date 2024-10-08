@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct LevelsOverview: View {
+    let columns = [
+        GridItem(.flexible(), spacing: 15),
+        GridItem(.flexible(), spacing: 15)
+    ] // Create a 2-column grid layout
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            NavigationStack {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        ForEach(LevelProvider.allLevels.indices, id: \.self) { index in
+                            let level = LevelProvider.allLevels[index]
+                            
+                            NavigationLink(destination: LevelDetailView(level: level)) {
+                                LevelsOverviewItemView(level: level) // Zeige jedes Level in einem ItemView
+                            }
+                            .foregroundColor(.black)
+                        }
+                    }
+                    .padding()
+                }
+                .navigationTitle("Levels")
+            }
     }
 }
 

@@ -21,7 +21,7 @@ struct LevelsOverview: View {
                             let level = LevelProvider.allLevels[index]
                             
                             NavigationLink(destination: LevelDetailView(level: level)) {
-                                LevelsOverviewItemView(level: level) // Zeige jedes Level in einem ItemView
+                                LevelsOverviewItemView(level: level)
                             }
                             .foregroundColor(.black)
                         }

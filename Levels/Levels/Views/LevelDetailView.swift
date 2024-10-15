@@ -85,6 +85,8 @@ struct LevelDetailView: View {
                 .blur(radius: 20)
                 .opacity(0.2)
         }
+        .navigationTitle(level.title)
+        .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showLevel) {
             NavigationStack {
                 AnyView(erasing: level) // Erase type for the view

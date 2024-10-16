@@ -25,6 +25,7 @@ struct TicTacToeLevel: Level {
     
     @State var board:[Player?] = Array(repeating: nil, count: 9)
     @State var currentPlayer:Player = .X
+    @State var scale: [Double] = Array(repeating: 1.0, count: 9)
     
     func tabTabbed(i:Int) {
         if board[i] == nil {
@@ -60,17 +61,21 @@ struct TicTacToeLevel: Level {
                 HStack {
                     Text("Player 1 (X)")
                         .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(.white)
+                        .background(currentPlayer == .X ? .pink : .white)
                         .border(.black)
                         .cornerRadius(4)
                         .padding(.leading)
+                        .opacity(currentPlayer == .X ? 1.0 : 0.5)
+                        .animation(.easeInOut(duration: 0.3), value: currentPlayer)
                     
                     Text("Player 2 (O)")
                         .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(.white)
+                        .background(currentPlayer == .O ? .pink : .white)
                         .border(.black)
                         .cornerRadius(4)
                         .padding(.trailing)
+                        .opacity(currentPlayer == .O ? 1.0 : 0.5)
+                        .animation(.easeInOut(duration: 0.3), value: currentPlayer)
                 }
             }
             .padding()
@@ -83,10 +88,17 @@ struct TicTacToeLevel: Level {
                         .frame(width: 100, height: 100)
                         .background(.gray)
                         .cornerRadius(8)
+                        .scaleEffect(board[i] == nil ? 1.0 : scale[i])
+                        .animation(.easeInOut(duration: 0.3), value: board[i])
                         .onTapGesture {
-                            tabTabbed(i: i)
+                            if board[i] == nil {
+                                tabTabbed(i: i)
+                                scale[i] = 1.2
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    scale[i] = 1.0
+                                }
+                            }
                         }
-                    
                 }
             })
             .padding()

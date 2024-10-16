@@ -61,8 +61,8 @@ struct TicTacToeLevel: Level {
                 HStack {
                     Text("Player 1 (X)")
                         .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(currentPlayer == .X ? .pink : .white)
-                        .border(.black)
+                        .background(currentPlayer == .X ? .blue : .white)
+                        .border(.black, width: 2)
                         .cornerRadius(4)
                         .padding(.leading)
                         .opacity(currentPlayer == .X ? 1.0 : 0.5)
@@ -71,7 +71,7 @@ struct TicTacToeLevel: Level {
                     Text("Player 2 (O)")
                         .frame(maxWidth: .infinity, maxHeight: 40)
                         .background(currentPlayer == .O ? .pink : .white)
-                        .border(.black)
+                        .border(.black, width: 2)
                         .cornerRadius(4)
                         .padding(.trailing)
                         .opacity(currentPlayer == .O ? 1.0 : 0.5)
@@ -83,10 +83,12 @@ struct TicTacToeLevel: Level {
             LazyVGrid(columns: col, content: {
                 ForEach(0..<9) { i in
                     Text(textLabel(i: i))
-                        .font(.title)
-                        .foregroundStyle(.white)
+                        .font(.largeTitle)
+                        .foregroundStyle(board[i] == .X ? Color.blue :
+                                            board[i] == .O ? Color.pink : Color.gray)
                         .frame(width: 100, height: 100)
-                        .background(.gray)
+                        .background(.white)
+                        .border(.black, width: 2)
                         .cornerRadius(8)
                         .scaleEffect(board[i] == nil ? 1.0 : scale[i])
                         .animation(.easeInOut(duration: 0.3), value: board[i])

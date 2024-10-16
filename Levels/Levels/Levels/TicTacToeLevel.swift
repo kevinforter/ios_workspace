@@ -49,8 +49,31 @@ struct TicTacToeLevel: Level {
     var body: some View {
         VStack {
             Text("Tic Tac Toe")
-                .font(.title)
+                .font(.largeTitle)
                 .padding(.vertical)
+            
+            Spacer()
+            
+            VStack {
+                Text("Current Player:")
+                    .padding(.bottom)
+                HStack {
+                    Text("Player 1 (X)")
+                        .frame(maxWidth: .infinity, maxHeight: 40)
+                        .background(.white)
+                        .border(.black)
+                        .cornerRadius(4)
+                        .padding(.leading)
+                    
+                    Text("Player 2 (O)")
+                        .frame(maxWidth: .infinity, maxHeight: 40)
+                        .background(.white)
+                        .border(.black)
+                        .cornerRadius(4)
+                        .padding(.trailing)
+                }
+            }
+            .padding()
             
             LazyVGrid(columns: col, content: {
                 ForEach(0..<9) { i in
@@ -73,6 +96,8 @@ struct TicTacToeLevel: Level {
             }, label: {
                 Text("Reset")
             })
+            
+            Spacer()
         }
         
         .toolbar {
@@ -82,23 +107,6 @@ struct TicTacToeLevel: Level {
         }
     }
 }
-
-/*
-@Observable
-class TicTacModel {
-    
-    @Published var board:[Player?] = Array(repeating: nil, count: 9)
-    @Published var currentPlayer:Player = .X
-    
-    func tabTabbed(i:Int) {
-        if board[i] == nil {
-            board[i] = currentPlayer
-        }
-        
-        currentPlayer = (currentPlayer == .X) ? .O : .X
-    }
-}
- */
 
 #Preview {
     TicTacToeLevel()

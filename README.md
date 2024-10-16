@@ -5,7 +5,7 @@
 - [X] 01: SwiftUI
 - [X] 02: Hangman
 - [X] 03: Navigation
-- [ ] 04: Tic-Tac-Toe
+- [X] 04: Tic-Tac-Toe
 - [ ] 05: Persistenz
 - [ ] 06: Nebeläufigkeit
 - [ ] 07: UIKit

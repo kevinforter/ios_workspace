@@ -81,7 +81,7 @@ struct LevelDetailView: View {
             }
         }
         .background {
-            Image(ImageResource.level)
+            level.titleImage
                 .blur(radius: 20)
                 .opacity(0.2)
         }

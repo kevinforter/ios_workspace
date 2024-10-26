@@ -23,7 +23,7 @@ struct LevelsOverview: View {
                             NavigationLink(destination: LevelDetailView(level: level)) {
                                 LevelsOverviewItemView(level: level)
                             }
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                         }
                     }
                     .padding()

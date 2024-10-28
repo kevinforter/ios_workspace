@@ -49,20 +49,15 @@ class UserSettings {
         }
     }
     var userId: UUID {
-        // TODO
-        // If there is no UUID stored in UserDefaults, create one and store it.
-        // Otherwise, just return the stored UUID.
-        return .init()
-    }
-
-    var alwaysUseDarkMode: Bool {
-            get {
-                // Retrieve the stored value for dark mode or return false if not set
-                return UserDefaults.standard.bool(forKey: "alwaysUseDarkMode")
-            }
-            set {
-                // Store the new value for dark mode in UserDefaults
-                UserDefaults.standard.set(newValue, forKey: "alwaysUseDarkMode")
-            }
+            UserDefaults.standard.string(forKey: Self.userDefaultsKeyUserId)
+                .flatMap { UUID(uuidString: $0) }
+            ?? {
+                let uuid = UUID()
+                UserDefaults.standard.set(uuid.uuidString, forKey: Self.userDefaultsKeyUserId)
+                return uuid
+            }()
         }
+        
+        var alwaysUseDarkMode = false
+
 }

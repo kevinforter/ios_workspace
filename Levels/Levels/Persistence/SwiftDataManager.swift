@@ -18,4 +18,7 @@ import SwiftData
     // TODO:
     // Write a saveAttempt() function that uses the modelContainer's
     // mainContext to store (insert) the new attempt
+    func saveNewAttempt(_ attempt: LevelAttempt) {
+        modelContainer.mainContext.insert(attempt)
+    }
 }

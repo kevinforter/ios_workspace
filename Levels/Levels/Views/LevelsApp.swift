@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct LevelsApp: App {
@@ -15,6 +16,7 @@ struct LevelsApp: App {
         WindowGroup {
             ContentView()
                 .environment(userSettings)
+                .modelContainer(SwiftDataManager.shared.modelContainer)
         }
     }
 }

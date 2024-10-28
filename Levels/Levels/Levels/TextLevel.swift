@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct TextLevel: Level {
-
+    
     let id: String = "levels.maerki.text-quiz"
     let title: String = "Das Texträtsel"
     let author: String = "Nicolas"
     let description: String = "Besonders schwieriges Rätsel, dass viel Wissen, Erfindergeist und Geduld verlangt."
     let titleImage: Image = Image(ImageResource.levelImage2)
-
-    @Environment(\.dismiss) private var dismiss
-
+    
+    @Environment(LevelState.self) private var levelState
+    
     @State var answer: String = ""
     var body: some View {
         List {
             Text("Ich habe Städte, aber keine Häuser. Ich habe Wälder, aber keine Bäume. Ich habe Flüsse, aber kein Wasser. Was bin ich?")
-
+            
             TextField("Antwort", text: $answer)
-
+            
             if answer == "Karte" {
                 Text("Korrekt")
             }
@@ -31,9 +31,9 @@ struct TextLevel: Level {
                 Text("Falsch")
             }
         }
-        .toolbar {
-            Button("Abbrechen") {
-                dismiss()
+        .onChange(of: answer) { _, newValue in
+            if newValue == "Karte" {
+                levelState.finish(successful: true)
             }
         }
     }

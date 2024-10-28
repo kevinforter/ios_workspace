@@ -126,15 +126,16 @@ struct HangmanLevel: Level {
     let author: String = "Kevin"
     let description: String = "Bis zum schluss"
     let titleImage: Image = Image(ImageResource.level)
-
-    @Environment(\.dismiss) private var dismiss
+    
+    //@Environment(\.dismiss) private var dismiss
+    @Environment(LevelState.self) private var levelState
     
     // @Binding var showLevel: Bool
     @State var remainingTries: Int = 7
     @State var guessedLetters: Set<Character> = []
     @State var text: String = ""
     private let wordToGuess: [Character] = wordList.randomElement()!.uppercased().map { $0 }
-
+    
     // Computed Property für das berechnete Wort
     private var calculatedWord: [Character] {
         wordToGuess.map { guessedLetters.contains($0) ? $0 : "_" }
@@ -154,16 +155,34 @@ struct HangmanLevel: Level {
         text = ""
     }
     
+    enum GameState {
+        case playing
+        case won
+        case lost
+    }
+    
+    private var state: GameState {
+        if remainingTries == 0 {
+            .lost
+        } else if wordToGuess == calculatedWord {
+            .won
+        } else {
+            .playing
+        }
+    }
+    
     var body: some View {
         VStack {
-            Button {
-                dismiss()
-            } label: {
-                Text("Schliessen")
-            }
-            .frame(maxWidth: .infinity,
-                   alignment: .trailing)
-            .padding(.trailing, 8)
+            /*
+             Button {
+             dismiss()
+             } label: {
+             Text("Schliessen")
+             }
+             .frame(maxWidth: .infinity,
+             alignment: .trailing)
+             .padding(.trailing, 8)
+             */
             
             Text("Hangman")
                 .font(.largeTitle)
@@ -187,11 +206,15 @@ struct HangmanLevel: Level {
             VStack (alignment: .leading) {
                 Text("Verbleibende Versuche: \(remainingTries)")
                 Text("Bereits geraten: \(guessedLetters.map { "\($0)" }.joined(separator: " "))")
-                if calculatedWord == wordToGuess {
+                
+                switch state {
+                case .playing:
+                    EmptyView()
+                case .won:
                     Text("🎉Du hast gewonnen!🎉")
                         .foregroundStyle(.green)
                         .bold()
-                } else if remainingTries == 0 {
+                case .lost:
                     Text("👎Du hast verloren!👎")
                         .foregroundStyle(.red)
                         .bold()
@@ -199,6 +222,21 @@ struct HangmanLevel: Level {
                         .foregroundStyle(.red)
                         .bold()
                 }
+                
+                /*
+                 if calculatedWord == wordToGuess {
+                 Text("🎉Du hast gewonnen!🎉")
+                 .foregroundStyle(.green)
+                 .bold()
+                 } else if remainingTries == 0 {
+                 Text("👎Du hast verloren!👎")
+                 .foregroundStyle(.red)
+                 .bold()
+                 Text("Das Wort war: \(wordToGuess.map { "\($0)"}.joined())")
+                 .foregroundStyle(.red)
+                 .bold()
+                 }
+                 */
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
@@ -221,13 +259,13 @@ struct HangmanLevel: Level {
                 }
             }
             .padding(.horizontal)
-
+            
             HStack {
                 Text("Buchstabe:")
                 
                 TextField("", text: $text)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(width: 25)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 25)
                 
                 Button {
                     evaluateGuess()
@@ -240,6 +278,21 @@ struct HangmanLevel: Level {
             
             Spacer()
         }
+        .onChange(of: state) { _, newValue in
+            // Delay dismissing the level for a few seconds to show
+            // the success or failure screen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                switch state {
+                case .playing:
+                    break
+                case .won:
+                    levelState.finish(successful: true)
+                case .lost:
+                    levelState.finish(successful: false)
+                }
+            }
+        }
+        
     }
 }
 

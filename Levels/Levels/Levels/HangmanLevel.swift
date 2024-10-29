@@ -286,9 +286,13 @@ struct HangmanLevel: Level {
                 case .playing:
                     break
                 case .won:
-                    levelState.finish(successful: true)
+                    Task {
+                        await levelState.finish(successful: true)
+                    }
                 case .lost:
-                    levelState.finish(successful: false)
+                    Task {
+                        await levelState.finish(successful: false)
+                    }
                 }
             }
         }

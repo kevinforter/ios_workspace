@@ -129,7 +129,9 @@ struct LevelDetailView: View {
                 AnyView(erasing: currentLevel.level)
                     .toolbar {
                         Button("Abbrechen") {
-                            levelState.finish(successful: false)
+                            Task {
+                                await levelState.finish(successful: false)
+                            }
                         }
                     }
             }

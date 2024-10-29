@@ -73,7 +73,9 @@ struct ToggleLevel: Level {
         }
         .onChange(of: sum) { _, newValue in
             if newValue == 42 {
-                levelState.finish(successful: true)
+                Task {
+                    await levelState.finish(successful: true)
+                }
             }
         }
     }

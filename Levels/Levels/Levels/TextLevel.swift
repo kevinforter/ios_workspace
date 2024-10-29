@@ -33,7 +33,9 @@ struct TextLevel: Level {
         }
         .onChange(of: answer) { _, newValue in
             if newValue == "Karte" {
-                levelState.finish(successful: true)
+                Task {
+                    await levelState.finish(successful: true)
+                }
             }
         }
     }

@@ -11,14 +11,28 @@ struct RankingPlayerView: View {
     let firstName: String
     let codeName: String
     let score: String
+    let profileImageUrl: URL
     var body: some View {
         HStack {
             HStack {
+                AsyncImage(url: profileImageUrl) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .shadow(radius: 10)
+                } placeholder: {
+                    ProgressView() // Displays a loading indicator while the image is loading
+                }
+                .frame(width: 50, height: 50)
+
+                /*
                 Image(ImageResource.player)
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                     .clipShape(Circle())
                     .shadow(radius : 10)
+                */
                 VStack (alignment: .leading) {
                     Text(firstName)
                         .font(.headline)
@@ -34,6 +48,8 @@ struct RankingPlayerView: View {
     }
 }
 
+/*
 #Preview {
     RankingPlayerView(firstName: "Kevin", codeName: "The Student", score: "1000")
 }
+*/

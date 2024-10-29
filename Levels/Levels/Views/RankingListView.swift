@@ -45,9 +45,9 @@ struct RankingListView: View {
     private func loadRankings() async {
         do {
             try await syncManager.updateRanking()
-                        DispatchQueue.main.async {
-                            self.rankedUsers = syncManager.ranking
-                        }
+            //DispatchQueue.main.async {
+            self.rankedUsers = syncManager.ranking
+            //}
         } catch {
             print("Failed to load rankings: \(error)")
         }

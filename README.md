@@ -7,7 +7,7 @@
 - [X] 03: Navigation
 - [X] 04: Tic-Tac-Toe
 - [X] 05: Persistenz
-- [ ] 06: Nebeläufigkeit
+- [X] 06: Nebeläufigkeit
 - [ ] 07: UIKit
 
 ## Kommentare
@@ -16,5 +16,5 @@
 - 03: 👍
 - 04:
 - 05: 
-- 06: 
+- 06: es funktioniert, weis aber ni wiso 
 - 07: 

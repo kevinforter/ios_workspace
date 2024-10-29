@@ -24,7 +24,7 @@ class LevelState {
         current = LevelStart(start: Date(), level: level)
     }
 
-    func finish(successful: Bool)  {
+    func finish(successful: Bool) async {
         guard let current else { return }
 
         let elapsedTime = Date().timeIntervalSince(current.start)
@@ -36,6 +36,13 @@ class LevelState {
                                    start: current.start)
 
         SwiftDataManager.shared.saveNewAttempt(attempt)
+        
+        // AddAttempt exec
+        do {
+            try await SyncManager.shared.addAttempt(attempt)
+        } catch {
+            print("Failed to sync attempt: \(error)")
+        }
 
         self.current = nil
     }

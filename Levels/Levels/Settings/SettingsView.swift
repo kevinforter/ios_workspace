@@ -25,7 +25,7 @@ struct SettingsView: View {
                 Section(header: Text("Erscheinungsbild")) {
                     Toggle("Immer Dark Mode verwenden", isOn: $userSettings.alwaysUseDarkMode)
                 }
-                .preferredColorScheme(userSettings.alwaysUseDarkMode ? .dark : nil)
+                //.preferredColorScheme(userSettings.alwaysUseDarkMode ? .dark : nil)
             }
             .navigationTitle("Einstellungen")
         }

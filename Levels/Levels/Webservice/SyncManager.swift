@@ -143,8 +143,15 @@ class SyncManager {
         // The request body should be an encoded `LevelUpdate`
         // Ensure that the header field Content-Type is set to application/json
         
-        // URL Construct
+        // GET User First
         let levelsURL = URL(string: "/levels/\(attempt.levelId)", relativeTo: baseUrl)!
+        var getRequest = URLRequest(url: levelsURL)
+        getRequest.httpMethod = "GET"
+        
+        let (data, _) = try await URLSession.shared.data(for: getRequest)
+        let level = try JSONDecoder().decode(LevelUpdate.self, from: data)
+        
+        // URL Construct
         var request = URLRequest(url: levelsURL)
         request.httpMethod = "PUT"
         
@@ -152,7 +159,7 @@ class SyncManager {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         // convert LevelAttempt to levelUpdate
-        let levelUpdate = LevelUpdate(title: attempt.levelId)
+        let levelUpdate = LevelUpdate(title: level.title)
         let jsonData = try JSONEncoder().encode(levelUpdate)
         request.httpBody = jsonData
         

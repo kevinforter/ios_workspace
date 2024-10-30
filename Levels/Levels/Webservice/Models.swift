@@ -28,7 +28,7 @@ struct RankedUser: Identifiable {
     var successCount: Int { attempts.filter(\.successful).count }
 }
 
-struct LevelUpdate: Encodable {
+struct LevelUpdate: Encodable, Decodable {
     let title: String
 }
 

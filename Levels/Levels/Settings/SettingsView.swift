@@ -12,7 +12,7 @@ struct SettingsView: View {
     
     @AppStorage("levels.user-settings.name") private var name: String = ""
     @AppStorage("levels.user-settings.nickname") private var nickname: String = ""
-    @AppStorage("alwaysUseDarkMode") private var alwaysUseDarkMode: Bool = false
+    //@AppStorage("alwaysUseDarkMode") private var alwaysUseDarkMode: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -23,7 +23,7 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Erscheinungsbild")) {
-                    Toggle("Immer Dark Mode verwenden", isOn: $alwaysUseDarkMode)
+                    Toggle("Immer Dark Mode verwenden", isOn: $userSettings.alwaysUseDarkMode)
                 }
                 .preferredColorScheme(userSettings.alwaysUseDarkMode ? .dark : nil)
             }

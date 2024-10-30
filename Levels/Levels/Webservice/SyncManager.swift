@@ -168,8 +168,15 @@ class SyncManager {
         // The request body should be an encoded `UserUpdate`
         // Ensure that the header field Content-Type is set to application/json
         
-        // URL Construct
+        // GET User First
         let usersURL = URL(string: "/users/\(userId)", relativeTo: baseUrl)!
+        var getRequest = URLRequest(url: usersURL)
+        getRequest.httpMethod = "GET"
+        
+        let (data, _) = try await URLSession.shared.data(for: getRequest)
+        let user = try JSONDecoder().decode(User.self, from: data)
+        
+        // URL Construct
         var request = URLRequest(url: usersURL)
         request.httpMethod = "PUT"
         
@@ -177,7 +184,7 @@ class SyncManager {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         // Header and field Content-Type is set to application/json
-        let userUpdate = UserUpdate(name: "", nickname: "")
+        let userUpdate = UserUpdate(name: user.name, nickname: user.nickname)
         let jsonData = try JSONEncoder().encode(userUpdate)
         request.httpBody = jsonData
         
